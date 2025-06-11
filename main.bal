@@ -1,4 +1,5 @@
 import ballerina/http;
+import ballerina/log;
 
 listener http:Listener httpDefaultListener = http:getDefaultListener();
 
@@ -10,6 +11,7 @@ service /MusicMood on httpDefaultListener {
             string musicMood = getMusicMood(weatherCode);
             SpotifyPlaylist spotifyResponse = check spotifyClient->get(string `/search?q=${musicMood}&type=playlist`);
             MusicSuggestion musicSuggestion = transform(weatherResponse, spotifyResponse);
+            log:printInfo(musicSuggestion.toString());
             return musicSuggestion;
         } on fail error err {
             return error("unhandled error", err);
