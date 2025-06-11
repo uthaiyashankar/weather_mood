@@ -1,0 +1,4 @@
+[package]
+org = "shankar"
+name = "weather_mood"
+version = "0.1.0"
